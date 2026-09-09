@@ -1,0 +1,11 @@
+// libSQL (Turso / local SQLite) client — URL-aware so it bundles cleanly.
+import { createClient } from '@libsql/client';
+
+let _client = null;
+export function db() {
+  if (_client) return _client;
+  const url = process.env.TURSO_DATABASE_URL || 'file:local.db';
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+  _client = createClient(authToken ? { url, authToken } : { url });
+  return _client;
+}
