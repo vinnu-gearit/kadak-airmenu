@@ -117,9 +117,8 @@ export default function Guest() {
                   {c.items.map((it) => {
                     const hasVar = it.variants && it.variants.length > 0;
                     const minP = hasVar ? Math.min(...it.variants.map((v) => v.price)) : it.price;
-                    const soldout = !it.is_available;
                     return (
-                      <div key={it.id} className={'item' + (soldout ? ' soldout' : '')}>
+                      <div key={it.id} className="item">
                         <div className="item-row" onClick={() => onTapItem(it.id)}>
                           <div className="item-main">
                             {it.is_veg === true ? <span className="mark v" /> : it.is_veg === false ? <span className="mark n" /> : <span className="mark-none" />}
@@ -128,7 +127,6 @@ export default function Guest() {
                               {it.description && <p className="item-desc">{it.description}</p>}
                               <div className="price">{hasVar ? 'from ' + inr(minP) : inr(it.price)}</div>
                               <div className="tags">
-                                {soldout && <span className="tag soldout">Sold out</span>}
                                 {it.is_bestseller && <span className="tag best">Bestseller</span>}
                                 {it.is_signature && <span className="tag pick">Signature</span>}
                                 {it.is_new && <span className="tag new">New</span>}

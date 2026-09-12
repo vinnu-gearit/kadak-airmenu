@@ -12,9 +12,11 @@ router.get('/restaurant', async (_req, res) => {
   catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// GET /api/menu — full menu incl. sold-out (guest greys them out)
+// GET /api/menu — guest menu. Sold-out items are removed entirely (not greyed);
+// a category with no available items drops out too. The manager still sees
+// everything via /api/manager/menu and can switch items back on.
 router.get('/menu', async (_req, res) => {
-  try { res.json(await buildMenu({ includeUnavailable: true })); }
+  try { res.json(await buildMenu({ includeUnavailable: false })); }
   catch (e) { res.status(500).json({ error: e.message }); }
 });
 
